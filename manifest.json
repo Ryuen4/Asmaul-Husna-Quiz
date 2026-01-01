@@ -1,9 +1,8 @@
-
 {
   "name": "Asmaul Husna",
   "short_name": "Asmaul Husna",
   "description": "Interactive quiz and learning tool for the 99 Names of Allah.",
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#020617",
   "theme_color": "#059669",

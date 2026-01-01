@@ -1,4 +1,4 @@
-const CACHE_NAME = 'asmaul-husna-v5';
+const CACHE_NAME = 'asmaul-husna-v7';
 const ASSETS = [
   '/',
   '/index.html',
@@ -30,9 +30,9 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET' || !event.request.url.startsWith('http')) return;
+  if (event.request.method !== 'GET') return;
 
-  // For navigation requests, try network first, then fallback to index.html
+  // Handle navigation requests - always try to serve index.html for client-side routing
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).catch(() => {
@@ -42,26 +42,25 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Cache-first strategy for static assets and CDN resources
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
         return cachedResponse;
       }
-
+      
       return fetch(event.request).then((networkResponse) => {
-        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-          return networkResponse;
+        // Cache successful responses
+        if (networkResponse && networkResponse.status === 200) {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
         }
-
-        const responseToCache = networkResponse.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
-        });
-
         return networkResponse;
       }).catch(() => {
-        // Fallback for assets if needed
-        return new Response('Offline resource not found', { status: 404 });
+        // Offline fallback for specific types if needed
+        return new Response('Offline content not available', { status: 503 });
       });
     })
   );

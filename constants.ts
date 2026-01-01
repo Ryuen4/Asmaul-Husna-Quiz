@@ -1,7 +1,7 @@
 import { NameOfAllah, LevelConfig, DifficultyLevel } from './types';
 
 export const DifficultyConfig: Record<DifficultyLevel, LevelConfig> = {
-  easy: { questions: 10, timeLimit: null },
+  easy: { questions: 10, timeLimit: 300 }, // 5 minutes
   medium: { questions: 33, timeLimit: 900 }, // 15 minutes
   hard: { questions: 99, timeLimit: 2700 } // 45 minutes
 };

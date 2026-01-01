@@ -29,40 +29,31 @@
     
     <style>
       :root { scroll-behavior: smooth; }
-      body { -webkit-tap-highlight-color: transparent; transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-      .animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      body { -webkit-tap-highlight-color: transparent; transition: background-color 0.2s ease, color 0.2s ease; }
+      .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
+        from { opacity: 0; transform: translateY(5px); }
         to { opacity: 1; transform: translateY(0); }
       }
+      
       .spiritual-bg {
-        background: linear-gradient(-45deg, #f0fdf4, #ecfdf5, #f0f9ff, #f8fafc);
-        background-size: 400% 400%;
-        animation: spiritualGradient 20s ease infinite;
+        background-color: #ffffff;
       }
       .dark .spiritual-bg {
-        background: linear-gradient(-45deg, #022c22, #064e3b, #042f2e, #020617);
-        background-size: 400% 400%;
+        background-color: #020617;
       }
-      @keyframes spiritualGradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-      }
-      
+
       /* Better scrollbar for exam readability */
-      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar { width: 4px; }
       ::-webkit-scrollbar-track { background: transparent; }
       ::-webkit-scrollbar-thumb {
         background: rgba(16, 185, 129, 0.2);
         border-radius: 10px;
       }
-      ::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.4); }
 
-      /* Prevent Arabic overlap and ensure proper display */
       .font-arabic {
-        line-height: 1.6;
-        padding: 0.2em 0;
+        line-height: 1;
+        direction: rtl;
       }
     </style>
 
@@ -78,7 +69,7 @@
     }
     </script>
   </head>
-  <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 overflow-x-hidden min-h-screen font-sans">
+  <body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 overflow-x-hidden min-h-screen font-sans antialiased">
     <div id="root"></div>
     <script type="module" src="index.tsx"></script>
     <script>

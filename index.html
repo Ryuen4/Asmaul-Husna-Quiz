@@ -3,40 +3,67 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Asmaul Husna Quiz</title>
-    <meta name="description" content="Learn and test your knowledge of the 99 Names of Allah. Works offline and is installable.">
+    <title>Asmaul Husna | Divine Attributes Exam</title>
+    <meta name="description" content="A formal assessment and learning tool for the 99 Names of Allah. Redesigned with a focus on typography and clarity.">
     <meta name="theme-color" content="#059669">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1041/1041916.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              arabic: ['Amiri', 'serif'],
+              sans: ['Inter', 'sans-serif'],
+            },
+          }
+        }
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
-      body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-      .font-arabic { font-family: 'Amiri', serif; }
-      .animate-fade-in { animation: fadeIn 0.5s ease-out; }
+      :root { scroll-behavior: smooth; }
+      body { -webkit-tap-highlight-color: transparent; transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+      .animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
+        from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
       }
-      .animate-spiritual {
-        background: linear-gradient(-45deg, #f0fdf4, #ecfdf5, #f0f9ff, #fffbeb);
+      .spiritual-bg {
+        background: linear-gradient(-45deg, #f0fdf4, #ecfdf5, #f0f9ff, #f8fafc);
         background-size: 400% 400%;
-        animation: spiritualGradient 15s ease infinite;
-        background-attachment: fixed;
+        animation: spiritualGradient 20s ease infinite;
+      }
+      .dark .spiritual-bg {
+        background: linear-gradient(-45deg, #022c22, #064e3b, #042f2e, #020617);
+        background-size: 400% 400%;
       }
       @keyframes spiritualGradient {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
       }
-      /* Custom scrollbar */
-      ::-webkit-scrollbar { width: 6px; }
+      
+      /* Better scrollbar for exam readability */
+      ::-webkit-scrollbar { width: 8px; }
       ::-webkit-scrollbar-track { background: transparent; }
-      ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(16, 185, 129, 0.2);
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover { background: rgba(16, 185, 129, 0.4); }
+
+      /* Prevent Arabic overlap and ensure proper display */
+      .font-arabic {
+        line-height: 1.6;
+        padding: 0.2em 0;
+      }
     </style>
 
     <script type="importmap">
@@ -51,18 +78,13 @@
     }
     </script>
   </head>
-  <body class="bg-slate-50 text-slate-900 overflow-x-hidden">
+  <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 overflow-x-hidden min-h-screen font-sans">
     <div id="root"></div>
-    
-    <!-- Entry Point -->
     <script type="module" src="index.tsx"></script>
-
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('SW Registered'))
-            .catch(err => console.log('SW Reg failed', err));
+          navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW Reg failed', err));
         });
       }
     </script>

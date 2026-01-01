@@ -4,6 +4,10 @@ export interface NameOfAllah {
   arabic: string;
   transliteration: string;
   meaning: string;
+  bn: {
+    transliteration: string;
+    meaning: string;
+  };
 }
 
 export type DifficultyLevel = 'easy' | 'medium' | 'hard';

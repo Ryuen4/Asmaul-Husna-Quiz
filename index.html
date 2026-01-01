@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +8,8 @@
     <meta name="description" content="A formal assessment and learning tool for the 99 Names of Allah. Redesigned with a focus on typography and clarity.">
     <meta name="theme-color" content="#059669">
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1041/1041916.png">
+    <link rel="icon" type="image/png" href="icon-192x192.png">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -18,6 +20,7 @@
             fontFamily: {
               arabic: ['Amiri', 'serif'],
               sans: ['Inter', 'sans-serif'],
+              bengali: ['Hind Siliguri', 'sans-serif'],
             },
           }
         }
@@ -25,7 +28,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
       :root { scroll-behavior: smooth; }
@@ -75,7 +78,7 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW Reg failed', err));
+          navigator.worker = navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW Reg failed', err));
         });
       }
     </script>

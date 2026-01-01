@@ -1,17 +1,30 @@
+
 {
-  "name": "Asmaul Husna Quiz",
-  "short_name": "99 Names",
+  "name": "Asmaul Husna",
+  "short_name": "Asmaul Husna",
   "description": "Interactive quiz and learning tool for the 99 Names of Allah.",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#020617",
   "theme_color": "#059669",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/1041/1041916.png",
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

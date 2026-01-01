@@ -1,8 +1,12 @@
-const CACHE_NAME = 'asmaul-husna-v2';
+const CACHE_NAME = 'asmaul-husna-v5';
 const ASSETS = [
-  './',
-  './index.html',
-  './manifest.json',
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/index.tsx',
+  '/App.tsx',
+  '/constants.ts',
+  '/types.ts',
   'https://cdn.tailwindcss.com'
 ];
 
@@ -26,28 +30,39 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Ignore browser extensions and non-get requests
   if (event.request.method !== 'GET' || !event.request.url.startsWith('http')) return;
+
+  // For navigation requests, try network first, then fallback to index.html
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(() => {
+        return caches.match('/index.html') || caches.match('/');
+      })
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      const fetchPromise = fetch(event.request).then((networkResponse) => {
-        // Cache successful responses for future offline use
-        if (networkResponse && networkResponse.status === 200) {
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      return fetch(event.request).then((networkResponse) => {
+        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+          return networkResponse;
         }
+
+        const responseToCache = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseToCache);
+        });
+
         return networkResponse;
       }).catch(() => {
-        // Fallback for offline navigation
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
-        }
+        // Fallback for assets if needed
+        return new Response('Offline resource not found', { status: 404 });
       });
-
-      return cachedResponse || fetchPromise;
     })
   );
 });
